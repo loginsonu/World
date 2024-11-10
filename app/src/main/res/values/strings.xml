@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">World</string>
+    <string name="no_internet">No Internet</string>
+    <string name="server_error">Server Error</string>
+    <string name="unauthorised_user">Unauthorised user</string>
+    <string name="unable_to_process">Unable to Process</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="access_denied">Access Denied</string>
+    <string name="country_list">Country List</string>
+    <string name="country_details">Country Details</string>
+    <string name="capital">Capital :</string>
+    <string name="calling_code">Calling Code :</string>
+    <string name="try_again">Try Again</string>
+</resources>
