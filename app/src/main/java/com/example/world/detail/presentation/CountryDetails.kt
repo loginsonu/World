@@ -32,6 +32,7 @@ import coil.decode.SvgDecoder
 import com.example.world.R
 import com.example.world.core.presentation.component.AppBar
 import com.example.world.core.presentation.component.ErrorView
+import com.example.world.detail.domain.model.CountryDetailsResponse
 import com.example.world.detail.presentation.component.ImageComponent
 
 /**
@@ -95,6 +96,7 @@ fun CountryDetailsLocal(
             )
         }else{
             state.countryDetailsResponse?.let { details->
+                //here imageLoader is created for decoding svg image
                 val imageLoader = ImageLoader.Builder(context)
                     .components {
                         add(SvgDecoder.Factory())
@@ -183,6 +185,21 @@ fun CountryDetailsLocal(
 
 @Preview(showBackground = true)
 @Composable
-fun CountryDetailsPreview(){
+fun CountryDetailsErrorPreview(){
     CountryDetailsLocal(CountryDetailsState())
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CountryDetailsPreview(){
+    CountryDetailsLocal(
+        CountryDetailsState(
+            countryDetailsResponse = CountryDetailsResponse(
+                countryName = "XYZ",
+                capitalName = "abc",
+                callingCode = "+91",
+                countryFlag = ""
+            )
+        )
+    )
 }

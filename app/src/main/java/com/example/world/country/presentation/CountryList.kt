@@ -26,6 +26,7 @@ import com.example.world.core.presentation.component.AppBar
 import com.example.world.core.presentation.component.ErrorView
 import com.example.world.core.presentation.navigation.Screens
 import com.example.world.core.presentation.ui.theme.WorldTheme
+import com.example.world.country.domain.model.CountryListResponse
 import com.example.world.country.presentation.component.CountryItem
 
 
@@ -117,8 +118,23 @@ private fun CountryListLocal(
 
 @Preview(showBackground = true)
 @Composable
-fun CountryListPreview(){
+fun CountryListErrorPreview(){
     WorldTheme {
         CountryListLocal(state = CountryState(), navController = rememberNavController())
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CountryListPreview(){
+    WorldTheme {
+        CountryListLocal(
+            state = CountryState(
+                countryListResponse = CountryListResponse(
+                    listCountry = listOf(com.example.world.country.domain.model
+                        .CountryItem(countryCode = "In", countryName = "India")
+                    ))),
+            navController = rememberNavController()
+        )
     }
 }
