@@ -2,7 +2,7 @@ package com.example.world.presentation.country_details.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.world.domain.Result
+import com.example.world.domain.model.Result
 import com.example.world.presentation.common.mapper.toUiNetworkErrorMessage
 import com.example.world.presentation.common.utils.UiMessage
 import com.example.world.domain.use_case.GetCountryDetailUseCase

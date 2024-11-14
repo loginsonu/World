@@ -1,9 +1,9 @@
 package com.example.world.data.repository
 
 import com.example.world.data.remote.api.Api
-import com.example.world.domain.DataError
-import com.example.world.domain.Result
-import com.example.world.domain.mapper.toNetworkError
+import com.example.world.domain.model.DataError
+import com.example.world.domain.model.Result
+import com.example.world.data.mapper.toNetworkError
 import com.example.world.data.mapper.toCountryDetails
 import com.example.world.domain.model.CountryDetailsResponse
 import com.example.world.domain.repository.CountryDetailsRepository

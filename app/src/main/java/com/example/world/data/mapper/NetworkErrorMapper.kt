@@ -1,6 +1,6 @@
-package com.example.world.domain.mapper
+package com.example.world.data.mapper
 
-import com.example.world.domain.DataError
+import com.example.world.domain.model.DataError
 import retrofit2.HttpException
 import java.io.IOException
 

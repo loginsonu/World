@@ -83,6 +83,8 @@ dependencies {
     //for api calls
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.retrofit2.rxjava2.adapter)
+
 
     //for navigation
     implementation(libs.androidx.navigation.compose)
@@ -103,4 +105,5 @@ dependencies {
     testImplementation(libs.turbine)
     testImplementation(libs.junit)
     testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.mockwebserver)
 }

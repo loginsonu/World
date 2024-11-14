@@ -2,8 +2,8 @@ package com.example.world.presentation.country_list.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import app.cash.turbine.test
-import com.example.world.domain.DataError
-import com.example.world.domain.Result
+import com.example.world.domain.model.DataError
+import com.example.world.domain.model.Result
 import com.example.world.domain.model.CountryItem
 import com.example.world.domain.model.CountryListResponse
 import com.example.world.domain.repository.CountryRepository
@@ -55,6 +55,7 @@ class CountryViewModelTest {
         viewModel.state.test {
             val item = awaitItem()
             assertEquals(CountryState(isLoading = true), item)
+            cancelAndConsumeRemainingEvents()
         }
     }
 
@@ -70,6 +71,7 @@ class CountryViewModelTest {
         viewModel.state.test {
             val item = awaitItem()
             assertEquals(CountryState(isLoading = false, countryListResponse = fakeCountryList),item)
+            cancelAndConsumeRemainingEvents()
         }
     }
 
@@ -84,6 +86,7 @@ class CountryViewModelTest {
             val item = awaitItem().copy(error = UiMessage.DynamicString(fakeError.toString()))
             assertEquals(CountryState(isLoading = false, error = UiMessage.DynamicString(fakeError.toString())),
                 item)
+            cancelAndConsumeRemainingEvents()
         }
     }
 

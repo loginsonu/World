@@ -1,10 +1,9 @@
 package com.example.world.domain.use_case
 
+import com.example.world.domain.model.CountryDetailsResponse
 import com.example.world.domain.model.DataError
 import com.example.world.domain.model.Result
-import com.example.world.domain.model.CountryItem
-import com.example.world.domain.model.CountryListResponse
-import com.example.world.domain.repository.CountryRepository
+import com.example.world.domain.repository.CountryDetailsRepository
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,16 +17,17 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
-class GetCountryUseCaseTest {
+class GetCountryDetailUseCaseTest {
 
-    private lateinit var getCountryUseCase: GetCountryUseCase
-    private val repository : CountryRepository = mock()
+    private lateinit var getCountryDetailsUseCase: GetCountryDetailUseCase
+    private val repository : CountryDetailsRepository = mock()
+    private lateinit var countryCode: String
 
     @Before
     fun setup() {
-        getCountryUseCase = GetCountryUseCase(repository)
+        countryCode = "IN"
+        getCountryDetailsUseCase = GetCountryDetailUseCase(repository)
     }
-
 
     @Test
     fun `should return loading state initially`() = runTest {
@@ -36,10 +36,9 @@ class GetCountryUseCaseTest {
             emit(Result.Loading)
         }
 
-        whenever(repository.countryList()).thenReturn(flowResult)
-
+        whenever(repository.countryDetails(countryCode)).thenReturn(flowResult)
         //Act
-        val resultFlow = getCountryUseCase()
+        val resultFlow = getCountryDetailsUseCase(countryCode)
 
         //Assert
         resultFlow.collect { result ->
@@ -49,36 +48,36 @@ class GetCountryUseCaseTest {
         }
 
         // Verify that the repository method was called exactly once
-        verify(repository, times(1)).countryList()
+        verify(repository, times(1)).countryDetails(countryCode)
     }
 
     @Test
-    fun `should return country list successfully`() = runTest {
+    fun `should return country details successfully`() = runTest {
         //Arrange
-        val fakeCountryList = CountryListResponse(
-            listCountry = listOf(CountryItem("India", "IN"))
+        val fakeCountryDetails = CountryDetailsResponse(
+            countryName = "India",
+            capitalName = "New Delhi",
+            callingCode = "+91",
+            countryFlag = "https://flagcdn.com/w320/in.png"
         )
 
         val flowResult = flow {
-            emit(Result.Success(fakeCountryList))
+            emit(Result.Success(fakeCountryDetails))
         }
-
-
-        whenever(repository.countryList()).thenReturn(flowResult)
+        whenever(repository.countryDetails(countryCode)).thenReturn(flowResult)
 
         //Act
-        val resultFlow = getCountryUseCase()
-
+        val resultFlow = getCountryDetailsUseCase(countryCode)
 
         //Assert
         resultFlow.collect { result ->
             assertTrue(result is Result.Success)
             val data = (result as Result.Success).data
-            assertEquals(fakeCountryList, data)
+            assertEquals(fakeCountryDetails, data)
         }
 
         // Verify that the repository method was called exactly once
-        verify(repository, times(1)).countryList()
+        verify(repository, times(1)).countryDetails(countryCode)
     }
 
     @Test
@@ -86,23 +85,22 @@ class GetCountryUseCaseTest {
         //Arrange
         val fakeError = DataError.Network.SERVER_ERROR
         val flowResult = flow {
-            emit(Result.Error<CountryListResponse, DataError.Network>(fakeError)) // Emitting a failure result
+            emit(Result.Error<CountryDetailsResponse, DataError.Network>(fakeError)) // Emitting a failure result
         }
 
+        whenever(repository.countryDetails(countryCode)).thenReturn(flowResult)
 
-        whenever(repository.countryList()).thenReturn(flowResult)
-
-        // Act
-        val resultFlow = getCountryUseCase()
+        //Act
+        val resultFlow = getCountryDetailsUseCase(countryCode)
 
         // Assert
         resultFlow.collect { result ->
             assertTrue(result is Result.Error)
-            val error = (result as Result.Error<CountryListResponse, DataError.Network>).error
+            val error = (result as Result.Error<CountryDetailsResponse, DataError.Network>).error
             assertEquals(fakeError,error)
         }
 
         // Verify that the repository method was called exactly once
-        verify(repository, times(1)).countryList()
+        verify(repository, times(1)).countryDetails(countryCode)
     }
 }

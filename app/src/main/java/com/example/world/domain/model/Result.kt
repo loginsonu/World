@@ -1,4 +1,4 @@
-package com.example.world.domain
+package com.example.world.domain.model
 
 
 /* With this interface we can handle any kind of errors

@@ -1,7 +1,7 @@
 package com.example.world.presentation.common.mapper
 
 import com.example.world.R
-import com.example.world.domain.DataError
+import com.example.world.domain.model.DataError
 import com.example.world.presentation.common.utils.UiMessage
 
 
