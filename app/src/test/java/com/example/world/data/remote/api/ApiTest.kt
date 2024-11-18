@@ -7,6 +7,7 @@ import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Retrofit
@@ -82,5 +83,10 @@ class ApiTest {
         // Assert
         assertEquals("United States", response.data?.name)
         assertEquals("US", response.data?.code)
+    }
+
+    @After
+    fun tearDown(){
+        mockWebServer.shutdown()
     }
 }
