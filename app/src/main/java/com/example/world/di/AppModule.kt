@@ -21,9 +21,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Provides
-    @Singleton
-    fun provideAuthInterceptor(): AuthInterceptor = AuthInterceptor()
 
     @Provides
     @Singleton
@@ -58,10 +55,8 @@ object AppModule {
     fun provideApi(retrofit: Retrofit): Api = retrofit.create(Api::class.java)
 
     @Provides
-    @Singleton
     fun provideCountryRepository(api: Api): CountryRepository = CountryRepositoryImpl(api)
 
     @Provides
-    @Singleton
     fun provideCountryDetailsRepository(api: Api): CountryDetailsRepository = CountryDetailsRepositoryImpl(api)
 }

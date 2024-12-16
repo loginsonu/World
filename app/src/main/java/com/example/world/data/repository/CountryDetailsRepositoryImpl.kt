@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class CountryDetailsRepositoryImpl @Inject constructor(
+class CountryDetailsRepositoryImpl(
     private val api: Api
 ) : CountryDetailsRepository {
     override suspend fun countryDetails(countryCode:String

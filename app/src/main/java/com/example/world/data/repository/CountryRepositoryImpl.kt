@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class CountryRepositoryImpl @Inject constructor(
+class CountryRepositoryImpl(
     private val api: Api
 ) : CountryRepository {
     override suspend fun countryList(): Flow<Result<CountryListResponse, DataError.Network>>  = flow{
